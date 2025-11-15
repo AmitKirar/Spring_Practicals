@@ -1,17 +1,29 @@
 package com.rays.form;
 
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class UserForm {
 
 	protected long id = 0;
 
+	@NotEmpty(message = "firstname is required")
 	private String firstName;
 
+	@NotEmpty(message = "lastname is required")
 	private String lastName;
 
+	@NotEmpty(message = "login is required")
+	@Email(message = "invalid email format")
 	private String login;
 
+	@NotEmpty(message = "password is required")
+	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!]).{8,}$", message = "Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.")
 	private String password;
 
+	@NotEmpty(message = "address is required")
 	private String address;
 	
 	private int pageNo;
