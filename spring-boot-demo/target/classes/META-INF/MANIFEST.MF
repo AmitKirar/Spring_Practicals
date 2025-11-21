@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: DELL
+Build-Jdk: 17.0.10
+Implementation-Title: spring-boot-demo
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.rays
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
+ -starter-parent/spring-boot-demo
+Created-By: Maven Integration for Eclipse
+
