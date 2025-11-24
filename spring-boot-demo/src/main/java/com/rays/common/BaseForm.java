@@ -1,5 +1,7 @@
 package com.rays.common;
 
+import java.text.ParseException;
+
 public class BaseForm {
 
 	protected Long id;
@@ -12,7 +14,7 @@ public class BaseForm {
 		this.id = id;
 	}
 
-	public BaseDTO getDto() {
+	public BaseDTO getDto() throws ParseException {
 		return null;
 	}
 
