@@ -1,6 +1,9 @@
 package com.rays.ctl;
 
+import java.io.OutputStream;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -117,6 +121,34 @@ public class UserCtl extends BaseCtl {
 		res.addResult("imageId", imageId);
 		res.setSuccess(true);
 		return res;
+	}
+	
+	
+	@GetMapping("/profilePic/{userId}")
+	public void downloadPic(@PathVariable Long userId, HttpServletResponse response) {
+
+		try {
+
+			UserDTO userDto = userService.findById(userId);
+
+			AttachmentDTO attachmentDTO = null;
+
+			if (userDto != null) {
+				attachmentDTO = attachmentService.findById(userDto.getImageId());
+			}
+
+			if (attachmentDTO != null) {
+				response.setContentType(attachmentDTO.getType());
+				OutputStream out = response.getOutputStream();
+				out.write(attachmentDTO.getDoc());
+				out.close();
+			} else {
+				response.getWriter().write("ERROR: File not found");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }
